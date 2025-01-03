@@ -49,7 +49,7 @@ const UploadPage = () => {
         />
 
         {/* Button to trigger file input */}
-        <label htmlFor="imageUpload" className={styles.uploadButton}>
+        <label htmlFor="imageUpload" className={styles.button}>
           Choose Image
         </label>
       </div>
