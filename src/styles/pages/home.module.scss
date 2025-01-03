@@ -1,0 +1,116 @@
+// @import '../fonts';
+@import '../colors';
+@import '../values';
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 2s ease-in-out;
+}
+
+.home {
+    min-height: 100vh;
+    padding: calc(#{$navbarheight} + 1rem) 2rem 1rem 2rem;
+    background-color: $background;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+
+    .image {
+        background-size: contain;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    .about {
+        margin: 2.5rem 0 1.5rem 0;
+        font-size: 2.4rem;
+        font-weight: 500;
+        
+    }
+
+    .aboutNext {
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: #3f3f3f;
+        text-align: center;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+
+    .button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: $background;
+        background-color: $primary;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 10rem;
+        height: 3rem;
+    }
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdownContent button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.dropdownContent button:hover {
+    background-color: #ddd;
+}
+
+@media (max-width: 500px) {
+    .home {
+        .image {
+            height: 8rem;
+            width: 8rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .about {
+            font-size: 1.45rem;
+        }
+
+        .about_next {
+            font-size: 1.3rem;
+        }
+    }
+}

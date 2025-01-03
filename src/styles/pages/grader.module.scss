@@ -1,0 +1,72 @@
+// @import '../fonts';
+@import '../colors';
+@import '../values';
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 2s ease-in-out;
+}
+
+.grader {
+    min-height: 100vh;
+    padding: calc(#{$navbarheight} + 1rem) 2rem 1rem 2rem;
+    background-color: $background;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+
+    .video {
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            border-radius:10px;
+    }
+
+    .button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $background;
+        background-color: $primary;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 10rem;
+        height: 3rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .home {
+        .image {
+            height: 8rem;
+            width: 8rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .about {
+            font-size: 1.45rem;
+        }
+
+        .about_next {
+            font-size: 1.3rem;
+        }
+    }
+}

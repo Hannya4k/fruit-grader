@@ -1,0 +1,93 @@
+// @import '../fonts';
+@import '../colors';
+@import '../values';
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 2s ease-in-out;
+}
+
+.upload {
+    min-height: 100vh;
+    padding: calc(#{$navbarheight} + 1rem) 2rem 1rem 2rem;
+    background-color: $background;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .imagePreview {
+        margin-bottom: 20px;
+        max-width: 100%;
+        max-height: 300px;
+        overflow: hidden;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        border: 1px solid #ccc;
+        
+        .previewImage {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+        
+    .fileInput {
+        display: none;
+    }
+
+    .uploadButton {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        
+            &:hover {
+                background-color: #45a049;
+            }
+    }
+
+}
+
+@media (max-width: 500px) {
+    .home {
+        .image {
+            height: 8rem;
+            width: 8rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .about {
+            font-size: 1.45rem;
+        }
+
+        .about_next {
+            font-size: 1.3rem;
+        }
+    }
+}
