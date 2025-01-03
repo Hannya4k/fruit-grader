@@ -54,20 +54,25 @@
         display: none;
     }
 
-    .uploadButton {
-        padding: 10px 20px;
-        background-color: #4caf50;
-        color: white;
+    .button {
+        margin-top: 1rem;
+        padding: 1rem 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $background;
+        background-color: $primary;
         border: none;
-        border-radius: 5px;
+        border-radius: 0.5rem;
         cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-        
+        transition: background-color 0.3s;
+        width: 10rem;
+        height: 3rem;
+        text-align: center;
+
             &:hover {
-                background-color: #45a049;
+                background-color: #5f715f;
             }
-    }
+        }
 
 }
 
