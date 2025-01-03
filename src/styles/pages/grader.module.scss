@@ -47,6 +47,10 @@
         transition: background-color 0.3s;
         width: 10rem;
         height: 3rem;
+
+            &:hover {
+                    background-color: #5f715f;
+                }
     }
 }
 
