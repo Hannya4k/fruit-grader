@@ -1,40 +1,44 @@
-// import Zoom from 'react-reveal/Zoom';
-
-// import profilePic from "../assets/Profile.jpg";
-// import { About, Links } from "../data";
+import { useState } from "react";
+import { About } from "../data/About";
 import styles from "../styles/pages/home.module.scss";
-
-// const welcomeText = `I am, ${About.firstName}  ${About.lastName}`;
+import hand from "../assets/hand.png";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleChoice1 = () => {
+    navigate("/grader");
+    setIsDropdownOpen(false);
+  };
+
+  const handleChoice2 = () => {
+    navigate("/upload");
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className={`${styles.home} ${styles.fadeIn}`}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {/* <img src={profilePic} alt="Profile" className={styles.image} /> */}
-        {/* <h2 className={styles.title}>{welcomeText}</h2> */}
+      <div>
+        <h1 className={styles.about}>{About.about1}</h1>
+        <h4 className={styles.aboutNext}>{About.about2}</h4>
+        <button className={styles.button} onClick={handleDropdown}>
+          - Get Started -
+        </button>
+        {isDropdownOpen && (
+          <div className={styles.dropdownContent}>
+            <button onClick={handleChoice1}>Real Time Camera</button>
+            <button onClick={handleChoice2}>Upload Photo</button>
+          </div>
+        )}
       </div>
       <div>
-        {/* <h3 className={styles.about}>{About.about1}</h3>
-        <h3 className={styles.about_next}>{About.about2}</h3> */}
-        {/* <div className={styles.links}>
-          {Links.map((item) => (
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noreferrer"
-              key={item.title}
-            >
-              {item.icon}
-            </a>
-          ))}
-        </div> */}
+        <img src={hand} alt="Hand" className={styles.image} />
       </div>
     </div>
   );

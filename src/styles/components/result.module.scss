@@ -1,0 +1,41 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .modalContent {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        position: relative;
+        // width: 70%;
+        // max-width: 70%;
+        text-align: center;
+    
+        .capture {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 10px;
+            object-fit: contain;
+        }
+    }
+
+    .closeModal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+}
