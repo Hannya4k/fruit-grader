@@ -96,13 +96,27 @@ const UploadPage = () => {
           <h3>Results:</h3>
           {results.map((result: any, index: number) => (
             <div key={index} className={styles.resultItem}>
-              <p>{`Label: ${result.label}`}</p>
+              <p>{`Label: ${result.yolo_label}`}</p>
               <p>{`Confidence: ${(result.confidence * 100).toFixed(2)}%`}</p>
-              <p>{`Grade: ${result.grade}`}</p>
+              <p>{`Grade: ${result.vgg_grade}`}</p>
+              <p>{`Grade: ${result.path}`}</p>
             </div>
           ))}
         </div>
       )}
+      {results && (
+        <div className={styles.results}>
+          <h3>Results:</h3>
+          {results.map((result: any, index: number) => (
+            <div key={index} className={styles.resultItem}>
+              <p>{`Label: ${result.efficientnet_label}`}</p>
+              <p>{`Grade: ${result.efficientnet_grade}`}</p>
+              <p>{`Grade: ${result.path}`}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      
     </div>
   );
 };
