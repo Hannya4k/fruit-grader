@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";  // Import axios for making HTTP requests
+import axios from "axios";
 import styles from "../styles/pages/upload.module.scss";
+import { Col, Row, Typography } from "antd";
+
+const { Title } = Typography;
 
 const UploadPage = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null); // To store the image source for preview
@@ -24,18 +27,24 @@ const UploadPage = () => {
     if (!imageSrc) return; // Ensure image is uploaded before submitting
 
     const formData = new FormData();
-    const fileInput = document.getElementById("imageUpload") as HTMLInputElement;
+    const fileInput = document.getElementById(
+      "imageUpload"
+    ) as HTMLInputElement;
     const file = fileInput?.files?.[0];
     if (file) {
       formData.append("image", file);
 
       try {
         setLoading(true); // Start loading
-        const response = await axios.post("http://127.0.0.1:5000/predict", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post(
+          "http://127.0.0.1:5000/predict",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         setResults(response.data.results); // Set the results from API response
         setImageSrc(`data:image/jpeg;base64,${response.data.image}`); // Set the base64 image as the source
       } catch (error) {
@@ -50,6 +59,90 @@ const UploadPage = () => {
     <div className={`${styles.upload} ${styles.fadeIn}`}>
       <div className={styles.title}>Upload a Photo</div>
 
+      <Row gutter={16} style={{ width: "100%" }}>
+        <Col span={12}>
+          <Title style={{ textAlign: "center" }}>BASELINE</Title>
+          <Row>
+            {imageSrc && (
+              <div className={styles.imagePreview}>
+                <img
+                  src={imageSrc}
+                  alt="Uploaded Preview"
+                  className={styles.previewImage}
+                />
+              </div>
+            )}
+            {results && (
+              <div className={styles.results}>
+                <h3>Results:</h3>
+                {results.map((result: any, index: number) => (
+                  <div key={index} className={styles.resultItem}>
+                    <p>{`Label: ${result.yolo_label}`}</p>
+                    <p>{`Confidence: ${(result.confidence * 100).toFixed(
+                      2
+                    )}%`}</p>
+                    <p>{`Grade: ${result.vgg_grade}`}</p>
+                    <p>{`Grade: ${result.path}`}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {results && (
+              <div className={styles.results}>
+                <h3>Results:</h3>
+                {results.map((result: any, index: number) => (
+                  <div key={index} className={styles.resultItem}>
+                    <p>{`Label: ${result.efficientnet_label}`}</p>
+                    <p>{`Grade: ${result.efficientnet_grade}`}</p>
+                    <p>{`Grade: ${result.path}`}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Row>
+        </Col>
+        <Col span={12}>
+          <Title style={{ textAlign: "center" }}>PROPOSED</Title>
+          <Row>
+            {imageSrc && (
+              <div className={styles.imagePreview}>
+                <img
+                  src={imageSrc}
+                  alt="Uploaded Preview"
+                  className={styles.previewImage}
+                />
+              </div>
+            )}
+            {results && (
+              <div className={styles.results}>
+                <h3>Results:</h3>
+                {results.map((result: any, index: number) => (
+                  <div key={index} className={styles.resultItem}>
+                    <p>{`Label: ${result.yolo_label}`}</p>
+                    <p>{`Confidence: ${(result.confidence * 100).toFixed(
+                      2
+                    )}%`}</p>
+                    <p>{`Grade: ${result.vgg_grade}`}</p>
+                    <p>{`Grade: ${result.path}`}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {results && (
+              <div className={styles.results}>
+                <h3>Results:</h3>
+                {results.map((result: any, index: number) => (
+                  <div key={index} className={styles.resultItem}>
+                    <p>{`Label: ${result.efficientnet_label}`}</p>
+                    <p>{`Grade: ${result.efficientnet_grade}`}</p>
+                    <p>{`Grade: ${result.path}`}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Row>
+        </Col>
+      </Row>
       <div
         style={{
           display: "flex",
@@ -59,7 +152,7 @@ const UploadPage = () => {
         }}
       >
         {/* Display the uploaded image preview */}
-        {imageSrc && (
+        {/* {imageSrc && (
           <div className={styles.imagePreview}>
             <img
               src={imageSrc}
@@ -67,7 +160,7 @@ const UploadPage = () => {
               className={styles.previewImage}
             />
           </div>
-        )}
+        )} */}
 
         {/* File input for image upload */}
         <input
@@ -91,7 +184,7 @@ const UploadPage = () => {
         </button>
       </div>
 
-      {results && (
+      {/* {results && (
         <div className={styles.results}>
           <h3>Results:</h3>
           {results.map((result: any, index: number) => (
@@ -115,8 +208,7 @@ const UploadPage = () => {
             </div>
           ))}
         </div>
-      )}
-      
+      )} */}
     </div>
   );
 };
