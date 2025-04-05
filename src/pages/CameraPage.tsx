@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import styles from "../styles/pages/grader.module.scss";
+import styles from "../styles/pages/camera.module.scss";
 import ResultModal from "../components/modals/ResultModal";
 
-const GraderPage = () => {
+const CameraPage = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [photo, setPhoto] = useState<string | null>(null);
@@ -89,4 +89,4 @@ const GraderPage = () => {
   );
 };
 
-export default GraderPage;
+export default CameraPage;

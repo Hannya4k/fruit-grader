@@ -13,7 +13,7 @@ const HomePage = () => {
   };
 
   const handleChoice1 = () => {
-    navigate("/grader");
+    navigate("/camera");
     setIsDropdownOpen(false);
   };
 

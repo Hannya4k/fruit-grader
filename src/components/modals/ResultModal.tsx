@@ -1,5 +1,7 @@
+import { Col, Row, Typography } from "antd";
 import styles from "../../styles/components/result.module.scss";
 
+const { Text } = Typography;
 interface ResultModalProps {
   isOpen: boolean;
   photo: string | null;
@@ -21,7 +23,18 @@ const ResultModal: React.FC<ResultModalProps> = ({
         </span>
         <div>
           <h3>Result</h3>
-          <img src={photo} alt="Captured" className={styles.capture} />
+          <Row gutter={16}>
+            <Col span={12}>
+              <Text style={{ fontSize: "25px" }}>Baseline</Text>
+              <img src={photo} alt="Captured" className={styles.capture} />
+              {/* Add Result Here */}
+            </Col>
+            <Col span={12}>
+              <Text style={{ fontSize: "25px" }}>Proposed</Text>
+              <img src={photo} alt="Captured" className={styles.capture} />
+              {/* Add Result here */}
+            </Col>
+          </Row>
         </div>
       </div>
     </div>
