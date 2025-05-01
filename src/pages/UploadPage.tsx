@@ -7,8 +7,10 @@ const { Title } = Typography;
 
 const UploadPage = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null); // To store the image source for preview
-  const [results, setResults] = useState<any | null>(null); // To store the response data
+  // const [results, setResults] = useState<any | null>(null); // To store the response data
   const [loading, setLoading] = useState(false); // To show loading indicator
+  const [baselineResults, setBaselineResults] = useState<any[]>([]);
+  const [cbamResults, setCbamResults] = useState<any[]>([]);
 
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +47,10 @@ const UploadPage = () => {
             },
           }
         );
-        setResults(response.data.results); // Set the results from API response
+        const results = response.data.results;
+        setBaselineResults(results.base_net_prediction || []);
+        setCbamResults(results.cbam_net_prediction || []);
+        // setResults(response.data.results); // Set the results from API response
         setImageSrc(`data:image/jpeg;base64,${response.data.image}`); // Set the base64 image as the source
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -72,33 +77,44 @@ const UploadPage = () => {
                 />
               </div>
             )}
-            {results && (
+            {baselineResults.length > 0 && (
               <div className={styles.results}>
                 <h3>Results:</h3>
-                {results.map((result: any, index: number) => (
+                {baselineResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
-                    <p>{`Label: ${result.yolo_label}`}</p>
-                    <p>{`Confidence: ${(result.confidence * 100).toFixed(
+                    <p>{`Fruit: ${result.fruit}`}</p>
+                    <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
-                    <p>{`Grade: ${result.vgg_grade}`}</p>
-                    <p>{`Grade: ${result.path}`}</p>
+                    <p>{`Freshness: ${result.freshness}`}</p>
+                    <p>{`Freshness Score: ${(
+                      result.freshness_score * 100
+                    ).toFixed(2)}%`}</p>
                   </div>
+                  // <div key={index} className={styles.resultItem}>
+                  //   <p>{`Label: ${result.yolo_label}`}</p>
+                  //   <p>{`Confidence: ${(result.confidence * 100).toFixed(
+                  //     2
+                  //   )}%`}</p>
+                  //   <p>{`Grade: ${result.vgg_grade}`}</p>
+                  //   <p>{`Grade: ${result.path}`}</p>
+                  // </div>
                 ))}
               </div>
             )}
-            {results && (
-              <div className={styles.results}>
-                <h3>Results:</h3>
-                {results.map((result: any, index: number) => (
-                  <div key={index} className={styles.resultItem}>
-                    <p>{`Label: ${result.efficientnet_label}`}</p>
-                    <p>{`Grade: ${result.efficientnet_grade}`}</p>
-                    <p>{`Grade: ${result.path}`}</p>
-                  </div>
-                ))}
-              </div>
-            )}
+
+            {/* {results && (
+                <div className={styles.results}>
+                  <h3>Results:</h3>
+                  {results.map((result: any, index: number) => (
+                    <div key={index} className={styles.resultItem}>
+                      <p>{`Label: ${result.efficientnet_label}`}</p>
+                      <p>{`Grade: ${result.efficientnet_grade}`}</p>
+                      <p>{`Grade: ${result.path}`}</p>
+                    </div>
+                  ))}
+                </div>
+              )} */}
           </Row>
         </Col>
         <Col span={12}>
@@ -113,22 +129,32 @@ const UploadPage = () => {
                 />
               </div>
             )}
-            {results && (
+            {cbamResults.length > 0 && (
               <div className={styles.results}>
                 <h3>Results:</h3>
-                {results.map((result: any, index: number) => (
+                {cbamResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
-                    <p>{`Label: ${result.yolo_label}`}</p>
-                    <p>{`Confidence: ${(result.confidence * 100).toFixed(
+                    <p>{`Fruit: ${result.fruit}`}</p>
+                    <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
-                    <p>{`Grade: ${result.vgg_grade}`}</p>
-                    <p>{`Grade: ${result.path}`}</p>
+                    <p>{`Freshness: ${result.freshness}`}</p>
+                    <p>{`Freshness Score: ${(
+                      result.freshness_score * 100
+                    ).toFixed(2)}%`}</p>
                   </div>
+                  // <div key={index} className={styles.resultItem}>
+                  //   <p>{`Label: ${result.yolo_label}`}</p>
+                  //   <p>{`Confidence: ${(result.confidence * 100).toFixed(
+                  //     2
+                  //   )}%`}</p>
+                  //   <p>{`Grade: ${result.vgg_grade}`}</p>
+                  //   <p>{`Grade: ${result.path}`}</p>
+                  // </div>
                 ))}
               </div>
             )}
-            {results && (
+            {/* {results && (
               <div className={styles.results}>
                 <h3>Results:</h3>
                 {results.map((result: any, index: number) => (
@@ -139,7 +165,7 @@ const UploadPage = () => {
                   </div>
                 ))}
               </div>
-            )}
+            )} */}
           </Row>
         </Col>
       </Row>
