@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/pages/upload.module.scss";
 import { Col, Row, Typography } from "antd";
+
 
 const { Title } = Typography;
 
@@ -23,6 +24,10 @@ const UploadPage = () => {
       reader.readAsDataURL(file); // Read the file as a data URL
     }
   };
+
+  useEffect(() => {
+    console.log("Updated baselineResults:", baselineResults);
+  }, [baselineResults]);
 
   // Handle image submission
   const handleSubmit = async () => {
@@ -47,11 +52,15 @@ const UploadPage = () => {
             },
           }
         );
-        const results = response.data.results;
-        setBaselineResults(results.base_net_prediction || []);
-        setCbamResults(results.cbam_net_prediction || []);
+        console.log("Full response from API:", response.data);
+        const results = response.data || {};
+        setBaselineResults(
+          results.base_net_prediction ? [results.base_net_prediction] : []
+        );
+        setCbamResults(
+          results.cbam_net_prediction ? [results.cbam_net_prediction] : []
+        );
         // setResults(response.data.results); // Set the results from API response
-        setImageSrc(`data:image/jpeg;base64,${response.data.image}`); // Set the base64 image as the source
       } catch (error) {
         console.error("Error uploading image:", error);
       } finally {
