@@ -3,7 +3,6 @@ import axios from "axios";
 import styles from "../styles/pages/upload.module.scss";
 import { Col, Row, Typography } from "antd";
 
-
 const { Title } = Typography;
 
 const UploadPage = () => {
@@ -91,7 +90,7 @@ const UploadPage = () => {
                 <h3>Results:</h3>
                 {baselineResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
-                    <p>{`Fruit: ${result.fruit}`}</p>
+                    <p>{`Fruit Type: ${result.fruit}`}</p>
                     <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
@@ -141,7 +140,7 @@ const UploadPage = () => {
                 <h3>Results:</h3>
                 {cbamResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
-                    <p>{`Fruit: ${result.fruit}`}</p>
+                    <p>{`Fruit Type: ${result.fruit}`}</p>
                     <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
