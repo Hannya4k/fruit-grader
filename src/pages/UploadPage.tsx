@@ -95,10 +95,8 @@ const UploadPage = () => {
                     <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
-                    <p>{`Freshness: ${result.freshness}`}</p>
-                    <p>{`Freshness Score: ${(
-                      result.freshness_score * 100
-                    ).toFixed(2)}%`}</p>
+                    <p>{`Quality: ${result.freshness}`}</p>
+                    <p>{`Quality Confidence: ${(result.freshness_score * 100).toFixed(2)}%`}</p>
                   </div>
                   // <div key={index} className={styles.resultItem}>
                   //   <p>{`Label: ${result.yolo_label}`}</p>
@@ -147,10 +145,8 @@ const UploadPage = () => {
                     <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
-                    <p>{`Freshness: ${result.freshness}`}</p>
-                    <p>{`Freshness Score: ${(
-                      result.freshness_score * 100
-                    ).toFixed(2)}%`}</p>
+                    <p>{`Quality: ${result.freshness}`}</p>
+                    <p>{`Quality Confidence: ${(result.freshness_score * 100).toFixed(2)}%`}</p>
                   </div>
                   // <div key={index} className={styles.resultItem}>
                   //   <p>{`Label: ${result.yolo_label}`}</p>
