@@ -70,6 +70,20 @@ const UploadPage = () => {
 
   return (
     <div className={`${styles.upload} ${styles.fadeIn}`}>
+      <div className={styles.legend}>
+        <h4>Legend: Quality Confidence</h4>
+        <ul>
+        <li>
+          <span style={{ color: "green", fontWeight: "bold" }}>High Confidence</span>: The model is highly certain (≥ 80%) about the predicted fruit quality.
+        </li>
+        <li>
+          <span style={{ color: "orange", fontWeight: "bold" }}>Medium Confidence</span>: The model is moderately certain (50% - 79%) about the predicted fruit quality.
+        </li>
+        <li>
+          <span style={{ color: "red", fontWeight: "bold" }}>Low Confidence</span>: The model is uncertain (&lt; 50%) about the predicted fruit quality.
+        </li>
+        </ul>
+      </div>
       <div className={styles.title}>Upload a Photo</div>
 
       <Row gutter={16} style={{ width: "100%" }}>
@@ -95,7 +109,16 @@ const UploadPage = () => {
                       2
                     )}%`}</p>
                     <p>{`Quality: ${result.freshness}`}</p>
-                    <p>{`Quality Confidence: ${(result.freshness_score * 100).toFixed(2)}%`}</p>
+                    <p
+                      style={{
+                        color:
+                          result.freshness_score >= 0.8
+                            ? "green"
+                            : result.freshness_score >= 0.5
+                            ? "orange"
+                            : "red",
+                      }}
+                    >{`Quality Confidence: ${(result.freshness_score * 100).toFixed(2)}%`}</p>
                   </div>
                   // <div key={index} className={styles.resultItem}>
                   //   <p>{`Label: ${result.yolo_label}`}</p>
@@ -145,7 +168,16 @@ const UploadPage = () => {
                       2
                     )}%`}</p>
                     <p>{`Quality: ${result.freshness}`}</p>
-                    <p>{`Quality Confidence: ${(result.freshness_score * 100).toFixed(2)}%`}</p>
+                    <p
+                      style={{
+                        color:
+                          result.freshness_score >= 0.8
+                            ? "green"
+                            : result.freshness_score >= 0.5
+                            ? "orange"
+                            : "red",
+                      }}
+                    >{`Quality Confidence: ${(result.freshness_score * 100).toFixed(2)}%`}</p>
                   </div>
                   // <div key={index} className={styles.resultItem}>
                   //   <p>{`Label: ${result.yolo_label}`}</p>

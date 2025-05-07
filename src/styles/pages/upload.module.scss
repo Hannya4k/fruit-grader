@@ -76,3 +76,19 @@
         }
     }
 }
+
+.legend {
+    margin-top: 20px;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    h4 {
+      margin-bottom: 8px;
+    }
+    ul {
+      padding-left: 20px;
+      li {
+        margin-bottom: 4px;
+      }
+    }
+  }
