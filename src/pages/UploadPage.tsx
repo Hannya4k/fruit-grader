@@ -103,7 +103,7 @@ const UploadPage = () => {
           <div className={styles.title} style={{ textAlign: "center" }}>
             BASELINE
           </div>
-          <Row>
+          <Row justify="center">
             {imageSrc && (
               <div className={styles.imagePreview}>
                 <img
@@ -113,6 +113,8 @@ const UploadPage = () => {
                 />
               </div>
             )}
+          </Row>
+          <Row justify="center">
             {baselineResults.length > 0 && (
               <div className={styles.results}>
                 <h3>Results:</h3>
@@ -166,7 +168,7 @@ const UploadPage = () => {
           <div className={styles.title} style={{ textAlign: "center" }}>
             PROPOSED
           </div>
-          <Row>
+          <Row justify="center">
             {imageSrc && (
               <div className={styles.imagePreview}>
                 <img
@@ -176,6 +178,8 @@ const UploadPage = () => {
                 />
               </div>
             )}
+          </Row>
+          <Row justify="center">
             {cbamResults.length > 0 && (
               <div className={styles.results}>
                 <h3>Results:</h3>
