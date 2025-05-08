@@ -91,7 +91,7 @@ const UploadPage = () => {
     <div className={`${styles.upload} ${styles.fadeIn}`}>
       <Title>Upload a Photo</Title>
       <div className={styles.legend}>
-        <h4>Legend: Quality Confidence</h4>
+        <h4>Legend: Confidence</h4>
         <ul>
           <li>
             <span style={{ color: "green", fontWeight: "bold" }}>
@@ -140,7 +140,14 @@ const UploadPage = () => {
                 {baselineResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
                     <p>{`Fruit Type: ${result.fruit}`}</p>
-                    <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
+                    <p   style={{
+                        color:
+                          result.fruit_confidence >= 0.8
+                            ? "green"
+                            : result.fruit_confidence >= 0.5
+                            ? "orange"
+                            : "red",
+                      }}>{`Fruit Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
                     <p>{`Quality: ${result.freshness}`}</p>
@@ -213,7 +220,14 @@ const UploadPage = () => {
                 {cbamResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
                     <p>{`Fruit Type: ${result.fruit}`}</p>
-                    <p>{`Confidence: ${(result.fruit_confidence * 100).toFixed(
+                    <p   style={{
+                        color:
+                          result.fruit_confidence >= 0.8
+                            ? "green"
+                            : result.fruit_confidence >= 0.5
+                            ? "orange"
+                            : "red",
+                      }}>{`Fruit Confidence: ${(result.fruit_confidence * 100).toFixed(
                       2
                     )}%`}</p>
                     <p>{`Quality: ${result.freshness}`}</p>
