@@ -13,6 +13,8 @@ const UploadPage = () => {
   const [cbamResults, setCbamResults] = useState<any[]>([]);
   const [baseFeatureMaps, setBaseFeatureMaps] = useState<string | null>(null);
   const [cbamFeatureMaps, setCbamFeatureMaps] = useState<string | null>(null);
+  const [inferenceTime, setInferenceTime] = useState<{ base_model: number; cbam_model: number } | null>(null);
+
 
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +63,7 @@ const UploadPage = () => {
         setCbamResults(
           results.cbam_net_prediction ? [results.cbam_net_prediction] : []
         );
+        setInferenceTime(results.inference_time_sec || null);
   
         // Request feature maps from the backend
         const baseFeatureMapsResponse = await axios.post(
@@ -173,6 +176,11 @@ const UploadPage = () => {
                   //   <p>{`Grade: ${result.path}`}</p>
                   // </div>
                 ))}
+                {inferenceTime?.base_model !== undefined && (
+                  <p style={{ fontStyle: "italic", color: "#888" }}>
+                    Inference Time: {inferenceTime.base_model.toFixed(2)} seconds
+                  </p>
+                )}
               </div>
             )}
 
@@ -253,6 +261,11 @@ const UploadPage = () => {
                   //   <p>{`Grade: ${result.path}`}</p>
                   // </div>
                 ))}
+                {inferenceTime?.cbam_model !== undefined && (
+                  <p style={{ fontStyle: "italic", color: "#888" }}>
+                    Inference Time: {inferenceTime.cbam_model.toFixed(2)} seconds
+                  </p>
+                )}
               </div>
             )}
             {/* {results && (
