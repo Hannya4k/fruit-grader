@@ -11,6 +11,8 @@ const UploadPage = () => {
   const [loading, setLoading] = useState(false); // To show loading indicator
   const [baselineResults, setBaselineResults] = useState<any[]>([]);
   const [cbamResults, setCbamResults] = useState<any[]>([]);
+  const [baseFeatureMaps, setBaseFeatureMaps] = useState<string | null>(null);
+  const [cbamFeatureMaps, setCbamFeatureMaps] = useState<string | null>(null);
 
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +33,7 @@ const UploadPage = () => {
   // Handle image submission
   const handleSubmit = async () => {
     if (!imageSrc) return; // Ensure image is uploaded before submitting
-
+  
     const formData = new FormData();
     const fileInput = document.getElementById(
       "imageUpload"
@@ -39,7 +41,7 @@ const UploadPage = () => {
     const file = fileInput?.files?.[0];
     if (file) {
       formData.append("image", file);
-
+  
       try {
         setLoading(true); // Start loading
         const response = await axios.post(
@@ -59,7 +61,24 @@ const UploadPage = () => {
         setCbamResults(
           results.cbam_net_prediction ? [results.cbam_net_prediction] : []
         );
-        // setResults(response.data.results); // Set the results from API response
+  
+        // Request feature maps from the backend
+        const baseFeatureMapsResponse = await axios.post(
+          "http://127.0.0.1:5000/feature-maps/base",
+          formData,
+          { responseType: "blob" } // To handle image response
+        );
+        const baseFeatureMapsUrl = URL.createObjectURL(baseFeatureMapsResponse.data);
+        setBaseFeatureMaps(baseFeatureMapsUrl); // Save base feature maps URL
+  
+        const cbamFeatureMapsResponse = await axios.post(
+          "http://127.0.0.1:5000/feature-maps/cbam",
+          formData,
+          { responseType: "blob" } // To handle image response
+        );
+        const cbamFeatureMapsUrl = URL.createObjectURL(cbamFeatureMapsResponse.data);
+        setCbamFeatureMaps(cbamFeatureMapsUrl); // Save CBAM feature maps URL
+  
       } catch (error) {
         console.error("Error uploading image:", error);
       } finally {
@@ -163,6 +182,14 @@ const UploadPage = () => {
                 </div>
               )} */}
           </Row>
+          <Row justify="center">
+            {baseFeatureMaps && (
+              <div>
+                <h3>Base Model Feature Maps:</h3>
+                <img src={baseFeatureMaps} alt="Base Feature Maps" />
+              </div>
+            )}
+          </Row>
         </Col>
         <Col span={12}>
           <div className={styles.title} style={{ textAlign: "center" }}>
@@ -226,6 +253,14 @@ const UploadPage = () => {
                 ))}
               </div>
             )} */}
+          </Row>
+          <Row justify="center">
+            {cbamFeatureMaps && (
+              <div>
+                <h3>CBAM Model Feature Maps:</h3>
+                <img src={cbamFeatureMaps} alt="CBAM Feature Maps" />
+              </div>
+            )}
           </Row>
         </Col>
       </Row>
