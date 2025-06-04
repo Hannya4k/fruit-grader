@@ -148,22 +148,35 @@ const UploadPage = () => {
                 <h3>Results:</h3>
                 {baselineResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
-                    {result.top3_fruits.map((fruitResult: any, fruitIndex: number) => (
-                      <div key={fruitIndex}>
-                        <p>{`Fruit Type: ${fruitResult.fruit}`}</p>
-                        <p
-                          style={{
-                            color:
-                              fruitResult.confidence >= 0.8
-                                ? "green"
-                                : fruitResult.confidence >= 0.5
-                                ? "orange"
-                                : "red",
-                          }}
-                        >{`Confidence: ${(fruitResult.confidence * 100).toFixed(2)}%`}</p>
-                      </div>
-                    ))}
-                    <p>{`Quality: ${result.freshness}`}</p>
+                    {result.top3_fruits.map(
+                      (fruitResult: any, fruitIndex: number) => (
+                        <div key={fruitIndex}>
+                          <p>
+                            <strong>{fruitIndex + 1}.</strong>{" "}
+                            {`Fruit Type: ${fruitResult.fruit}`}
+                          </p>
+                          {/* <p>{`Fruit Type: ${fruitResult.fruit}`}</p> */}
+                          <p
+                            style={{
+                              color:
+                                fruitResult.confidence >= 0.8
+                                  ? "green"
+                                  : fruitResult.confidence >= 0.5
+                                  ? "orange"
+                                  : "red",
+                            }}
+                          >
+                            {`Confidence: ${(
+                              fruitResult.confidence * 100
+                            ).toFixed(2)}%`}
+                          </p>
+                          <hr style={{ marginBottom: "10px" }} />
+                        </div>
+                      )
+                    )}
+                    <p
+                      style={{ marginTop: "15px" }}
+                    >{`Quality: ${result.freshness}`}</p>
                     <p
                       style={{
                         color:
@@ -274,22 +287,33 @@ const UploadPage = () => {
                 <h3>Results:</h3>
                 {cbamResults.map((result: any, index: number) => (
                   <div key={index} className={styles.resultItem}>
-                    {result.top3_fruits.map((fruitResult: any, fruitIndex: number) => (
-                      <div key={fruitIndex}>
-                        <p>{`Fruit Type: ${fruitResult.fruit}`}</p>
-                        <p
-                          style={{
-                            color:
-                              fruitResult.confidence >= 0.8
-                                ? "green"
-                                : fruitResult.confidence >= 0.5
-                                ? "orange"
-                                : "red",
-                          }}
-                        >{`Confidence: ${(fruitResult.confidence * 100).toFixed(2)}%`}</p>
-                      </div>
-                    ))}
-                    <p>{`Quality: ${result.freshness}`}</p>
+                    {result.top3_fruits.map(
+                      (fruitResult: any, fruitIndex: number) => (
+                        <div key={fruitIndex}>
+                          <p>
+                            <strong>{fruitIndex + 1}.</strong>{" "}
+                            {`Fruit Type: ${fruitResult.fruit}`}
+                          </p>
+                          {/* <p>{`Fruit Type: ${fruitResult.fruit}`}</p> */}
+                          <p
+                            style={{
+                              color:
+                                fruitResult.confidence >= 0.8
+                                  ? "green"
+                                  : fruitResult.confidence >= 0.5
+                                  ? "orange"
+                                  : "red",
+                            }}
+                          >{`Confidence: ${(
+                            fruitResult.confidence * 100
+                          ).toFixed(2)}%`}</p>
+                          <hr style={{ marginBottom: "10px" }} />
+                        </div>
+                      )
+                    )}
+                    <p
+                      style={{ marginTop: "15px" }}
+                    >{`Quality: ${result.freshness}`}</p>
                     <p
                       style={{
                         color:
