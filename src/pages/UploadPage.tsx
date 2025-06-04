@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/pages/upload.module.scss";
-import { Col, Row, Typography } from "antd";
+import { Button, Col, Row, Typography } from "antd";
 
 const { Title } = Typography;
 
@@ -13,9 +13,12 @@ const UploadPage = () => {
   const [cbamResults, setCbamResults] = useState<any[]>([]);
   const [baseFeatureMaps, setBaseFeatureMaps] = useState<string | null>(null);
   const [cbamFeatureMaps, setCbamFeatureMaps] = useState<string | null>(null);
-  const [inferenceTime, setInferenceTime] = useState<{ base_model: number; cbam_model: number } | null>(null);
-
-
+  const [inferenceTime, setInferenceTime] = useState<{
+    base_model: number;
+    cbam_model: number;
+  } | null>(null);
+  const [showBaseImage, setShowBaseImage] = useState(false);
+  const [showCbamImage, setShowCbamImage] = useState(false);
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,7 +38,7 @@ const UploadPage = () => {
   // Handle image submission
   const handleSubmit = async () => {
     if (!imageSrc) return; // Ensure image is uploaded before submitting
-  
+
     const formData = new FormData();
     const fileInput = document.getElementById(
       "imageUpload"
@@ -43,7 +46,7 @@ const UploadPage = () => {
     const file = fileInput?.files?.[0];
     if (file) {
       formData.append("image", file);
-  
+
       try {
         setLoading(true); // Start loading
         const response = await axios.post(
@@ -64,24 +67,27 @@ const UploadPage = () => {
           results.cbam_net_prediction ? [results.cbam_net_prediction] : []
         );
         setInferenceTime(results.inference_time_sec || null);
-  
+
         // Request feature maps from the backend
         const baseFeatureMapsResponse = await axios.post(
           "http://127.0.0.1:5000/feature-maps/base",
           formData,
           { responseType: "blob" } // To handle image response
         );
-        const baseFeatureMapsUrl = URL.createObjectURL(baseFeatureMapsResponse.data);
+        const baseFeatureMapsUrl = URL.createObjectURL(
+          baseFeatureMapsResponse.data
+        );
         setBaseFeatureMaps(baseFeatureMapsUrl); // Save base feature maps URL
-  
+
         const cbamFeatureMapsResponse = await axios.post(
           "http://127.0.0.1:5000/feature-maps/cbam",
           formData,
           { responseType: "blob" } // To handle image response
         );
-        const cbamFeatureMapsUrl = URL.createObjectURL(cbamFeatureMapsResponse.data);
+        const cbamFeatureMapsUrl = URL.createObjectURL(
+          cbamFeatureMapsResponse.data
+        );
         setCbamFeatureMaps(cbamFeatureMapsUrl); // Save CBAM feature maps URL
-  
       } catch (error) {
         console.error("Error uploading image:", error);
       } finally {
@@ -181,8 +187,15 @@ const UploadPage = () => {
                   // </div>
                 ))}
                 {inferenceTime?.base_model !== undefined && (
-                  <p style={{ fontStyle: "italic", color: "#888" }}>
-                    Inference Time: {inferenceTime.base_model.toFixed(2)} seconds
+                  <p
+                    style={{
+                      fontStyle: "italic",
+                      color: "#888",
+                      textAlign: "center",
+                    }}
+                  >
+                    Inference Time: {inferenceTime.base_model.toFixed(2)}{" "}
+                    seconds
                   </p>
                 )}
               </div>
@@ -201,14 +214,44 @@ const UploadPage = () => {
                 </div>
               )} */}
           </Row>
-          <Row justify="center">
+          <Row justify="center" style={{ marginTop: "20px" }}>
             {baseFeatureMaps && (
-              <div>
-                <h3>Base Model Feature Maps:</h3>
-                <img src={baseFeatureMaps} alt="Base Feature Maps" />
+              <div style={{ textAlign: "center" }}>
+                <Button
+                  type="primary"
+                  onClick={() => setShowBaseImage((prev) => !prev)}
+                  style={{ marginBottom: "10px" }}
+                >
+                  {showBaseImage
+                    ? "Hide Base Feature Maps"
+                    : "Show Base Feature Maps"}
+                </Button>
+
+                {showBaseImage && (
+                  <div>
+                    <h3>Base Model Feature Maps:</h3>
+                    <img
+                      style={{ width: "50%", height: "50%" }}
+                      src={baseFeatureMaps}
+                      alt="Base Feature Maps"
+                    />
+                  </div>
+                )}
               </div>
             )}
           </Row>
+          {/* <Row justify="center">
+            {baseFeatureMaps && (
+              <div>
+                <h3>Base Model Feature Maps:</h3>
+                <img
+                  style={{ width: "50%", height: "50%" }}
+                  src={baseFeatureMaps}
+                  alt="Base Feature Maps"
+                />
+              </div>
+            )}
+          </Row> */}
         </Col>
         <Col span={12}>
           <div className={styles.title} style={{ textAlign: "center" }}>
@@ -270,8 +313,15 @@ const UploadPage = () => {
                   // </div>
                 ))}
                 {inferenceTime?.cbam_model !== undefined && (
-                  <p style={{ fontStyle: "italic", color: "#888" }}>
-                    Inference Time: {inferenceTime.cbam_model.toFixed(2)} seconds
+                  <p
+                    style={{
+                      fontStyle: "italic",
+                      color: "#888",
+                      textAlign: "center",
+                    }}
+                  >
+                    Inference Time: {inferenceTime.cbam_model.toFixed(2)}{" "}
+                    seconds
                   </p>
                 )}
               </div>
@@ -289,14 +339,44 @@ const UploadPage = () => {
               </div>
             )} */}
           </Row>
-          <Row justify="center">
+          <Row justify="center" style={{ marginTop: "20px" }}>
             {cbamFeatureMaps && (
-              <div>
-                <h3>CBAM Model Feature Maps:</h3>
-                <img src={cbamFeatureMaps} alt="CBAM Feature Maps" />
+              <div style={{ textAlign: "center" }}>
+                <Button
+                  type="primary"
+                  onClick={() => setShowCbamImage((prev) => !prev)}
+                  style={{ marginBottom: "10px" }}
+                >
+                  {showCbamImage
+                    ? "Hide CBAM Feature Maps"
+                    : "Show CBAM Feature Maps"}
+                </Button>
+
+                {showCbamImage && (
+                  <div>
+                    <h3>CBAM Model Feature Maps:</h3>
+                    <img
+                      style={{ width: "50%", height: "50%" }}
+                      src={cbamFeatureMaps}
+                      alt="CBAM Feature Maps"
+                    />
+                  </div>
+                )}
               </div>
             )}
           </Row>
+          {/* <Row justify="center">
+            {cbamFeatureMaps && (
+              <div style={{ justifyContent: "center" }}>
+                <h3>CBAM Model Feature Maps:</h3>
+                <img
+                  style={{ width: "50%", height: "50%" }}
+                  src={cbamFeatureMaps}
+                  alt="CBAM Feature Maps"
+                />
+              </div>
+            )}
+          </Row> */}
         </Col>
       </Row>
       <div
