@@ -129,7 +129,7 @@ const UploadPage = () => {
       <Row gutter={16} style={{ width: "100%", marginTop: "20px" }}>
         <Col span={12}>
           <div className={styles.title} style={{ textAlign: "center" }}>
-            BASELINE
+            Baseline Model
           </div>
           <Row justify="center">
             {imageSrc && (
@@ -268,7 +268,7 @@ const UploadPage = () => {
         </Col>
         <Col span={12}>
           <div className={styles.title} style={{ textAlign: "center" }}>
-            PROPOSED
+            New Model
           </div>
           <Row justify="center">
             {imageSrc && (
